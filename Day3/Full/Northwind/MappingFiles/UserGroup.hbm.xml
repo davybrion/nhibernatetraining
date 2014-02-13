@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" namespace="Northwind.Entities" assembly="Northwind">
+
+  <class name="UserGroup">
+    <cache usage="read-write" />
+    
+    <id name="Id" column="Id" >
+      <generator class="hilo">
+        <param name="max_lo">100</param>
+      </generator>
+    </id>
+
+    <property name="Name" length="20" not-null="true" />
+
+    <set name="Users" table="UserUserGroup" cascade="save-update" access="field.camelcase-underscore" inverse="true">
+      <key column="UsergroupId" />
+      <many-to-many class="User" column="UserId" />
+    </set>
+
+  </class>
+
+</hibernate-mapping>
